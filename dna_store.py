@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
+import secrets
+import string
+import textwrap
 from itertools import accumulate
-from operator import add, sub, itemgetter
+from operator import add, itemgetter, sub
 from random import randint
 
 
@@ -354,6 +357,57 @@ class DNAStore:
         return decoded
 
     @classmethod
+    def generate_key(cls, file="dna.key", bits=512, verbose=False):
+        """
+        Generates a key to encrypt DNA and writes key to file
+
+        Keyword Arguments:
+            file -- file name of key file_ (default: {"dna.key"})
+            bits -- nr of bits per base (will be multiplied by 4) (default: {512})
+            verbose -- ptint verbose output (default: {False})
+        """
+        digit = string.digits
+        key = "".join([(secrets.choice(digit)) for _ in range(bits * 4)])
+        wrapped = textwrap.fill(key, width=80)
+
+        with open(file, "w", encoding="utf-8") as fout:
+            fout.write("-----START DNA PRIVATE KEY-----\n")
+            fout.write(wrapped)
+            fout.write("\n-----END DNA PRIVATE KEY-----")
+
+        if verbose:
+            print("key:", key)
+
+    @classmethod
+    def __import_key(cls, file="dna.key", verbose=False):
+        """
+        Imports a DNA key file
+
+        Keyword Arguments:
+            file -- input file name_ (default: {"dna.key"})
+            verbose -- _print verbose output_ (default: {False})
+
+        Returns:
+            _description_
+        """
+        key_string = ""
+        with open(file, "r", encoding="utf-8") as fin:
+            key_string = "".join(
+                [
+                    line.replace("\n", "") if not line.startswith("-----") else ""
+                    for line in fin
+                ]
+            )
+
+        l = len(key_string) // 4
+        key_streams = [key_string[i : i + l] for i in range(0, len(key_string), l)]
+
+        if verbose:
+            print("key_streams:", key_streams)
+
+        return key_streams
+
+    @classmethod
     def __encode_string2huffman(cls, s_0, verbose=False):
         """
         Converts a string to bytes and then encodes bytes with huffman code
@@ -699,7 +753,10 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa 
 qui officia deserunt mollit anim id est laborum.
 """
-    ENCODED = DNAStore().encode(INPUT, encrypt=False, verbose=True)
+    ENCODED = DNAStore().encode(INPUT, encrypt=False, verbose=False)
     print("Encoded:", ENCODED)
-    DECODED = DNAStore().decode(ENCODED, decrypt=False, verbose=True)
+    DECODED = DNAStore().decode(ENCODED, decrypt=False, verbose=False)
     print("Decoded:", DECODED)
+
+    DNAStore().generate_key(verbose=True)
+    DNAStore().import_key(verbose=True)
