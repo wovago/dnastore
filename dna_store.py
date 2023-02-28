@@ -287,16 +287,8 @@ class DNAStore:
     __DNA2TRIT = {"A": 0, "C": 1, "G": 2, "T": 3}
     __TRIT2DNA = {0: "A", 1: "C", 2: "G", 3: "T"}
 
-    # Only added for testing, still need to implement random keystream generator
-    __KEY_STREAMS = [
-        "9820000563242342310110102111112122210011122221010102121222022000221201020221002121121000212222021211121122221",
-        "202020122121210120001200210222112020222022222220220001221012111022121120202022211221112202002121022",
-        "221221101200221120220011002222100000020200021121021020122100021201010210202002000101020022121100100",
-        "100122100011112100120210020011102201122122100100120122212000021220022012202201100010212222110222020",
-    ]
-
     @classmethod
-    def encode(cls, input_string, encrypt=False, verbose=False):
+    def encode(cls, input_string, encrypt=False, key_file=None, verbose=False):
         """
         Encodes an input string to DNA sequence
 
@@ -309,11 +301,16 @@ class DNAStore:
         segments = cls.__create_segments(dna_string, verbose=verbose)
         random_segs = []
         if encrypt:
+            assert key_file, "Key file missing! Please provide a key."
+
+            key_streams = cls.__import_key(key_file=key_file)
             random_segs = cls.__randomize_segments(
-                segments, mode="encrypt", verbose=verbose
+                segments, mode="encrypt", key_streams=key_streams, verbose=verbose
             )
         else:
-            random_segs = cls.__randomize_segments(segments, mode=None, verbose=verbose)
+            random_segs = cls.__randomize_segments(
+                segments, mode=None, key_streams=None, verbose=verbose
+            )
         indexed_segments = cls.__create_indexed_segments(random_segs, verbose=verbose)
         directed_segments = cls.__add_orientation_bases(
             indexed_segments, verbose=verbose
@@ -324,7 +321,7 @@ class DNAStore:
         return directed_segments
 
     @classmethod
-    def decode(cls, input_dna, decrypt=False, verbose=False):
+    def decode(cls, input_dna, decrypt=False, key_file=None, verbose=False):
         """
         Decodes a DNA sequence to input string
 
@@ -343,12 +340,15 @@ class DNAStore:
         extracted_segs = cls.__extract_segments(input_dna, verbose=verbose)
         decrypted_segs = []
         if decrypt:
+            assert key_file, "Key file missing! Please provide a key."
+
+            key_streams = cls.__import_key(key_file=key_file)
             decrypted_segs = cls.__randomize_segments(
-                extracted_segs, mode="decrypt", verbose=verbose
+                extracted_segs, mode="decrypt", key_streams=key_streams, verbose=verbose
             )
         else:
             decrypted_segs = cls.__randomize_segments(
-                extracted_segs, mode=None, verbose=verbose
+                extracted_segs, mode=None, key_streams=None, verbose=verbose
             )
         assembled_seq = cls.__assemble_segments(decrypted_segs, verbose=verbose)
         decoded = cls.__decode_dna_string(assembled_seq, verbose=verbose)
@@ -357,7 +357,7 @@ class DNAStore:
         return decoded
 
     @classmethod
-    def generate_key(cls, file="dna.key", bits=512, verbose=False):
+    def generate_key(cls, key_file="dna.key", bits=512, verbose=False):
         """
         Generates a key to encrypt DNA and writes key to file
 
@@ -370,7 +370,7 @@ class DNAStore:
         key = "".join([(secrets.choice(digit)) for _ in range(bits * 4)])
         wrapped = textwrap.fill(key, width=80)
 
-        with open(file, "w", encoding="utf-8") as fout:
+        with open(key_file, "w", encoding="utf-8") as fout:
             fout.write("-----START DNA PRIVATE KEY-----\n")
             fout.write(wrapped)
             fout.write("\n-----END DNA PRIVATE KEY-----")
@@ -379,7 +379,7 @@ class DNAStore:
             print("key:", key)
 
     @classmethod
-    def __import_key(cls, file="dna.key", verbose=False):
+    def __import_key(cls, key_file="dna.key", verbose=False):
         """
         Imports a DNA key file
 
@@ -391,7 +391,7 @@ class DNAStore:
             _description_
         """
         key_string = ""
-        with open(file, "r", encoding="utf-8") as fin:
+        with open(key_file, "r", encoding="utf-8") as fin:
             key_string = "".join(
                 [
                     line.replace("\n", "") if not line.startswith("-----") else ""
@@ -524,7 +524,7 @@ class DNAStore:
         return sequences
 
     @classmethod
-    def __randomize_segments(cls, segment_list, mode, verbose=False):
+    def __randomize_segments(cls, segment_list, mode, key_streams, verbose=False):
         """
         Randomizes segments using keystreams
 
@@ -552,7 +552,7 @@ class DNAStore:
                     map(
                         add,
                         base3_trits,
-                        [int(x) for x in cls.__KEY_STREAMS[index % 4]],
+                        [int(x) for x in key_streams[index % 4]],
                     )
                 )
             elif mode == "decrypt":
@@ -560,7 +560,7 @@ class DNAStore:
                     map(
                         sub,
                         base3_trits,
-                        [int(x) for x in cls.__KEY_STREAMS[index % 4]],
+                        [int(x) for x in key_streams[index % 4]],
                     )
                 )
             combined = [(x % 3) + 1 for x in combined]
@@ -753,10 +753,12 @@ in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa 
 qui officia deserunt mollit anim id est laborum.
 """
-    ENCODED = DNAStore().encode(INPUT, encrypt=False, verbose=False)
+    ENCODED = DNAStore().encode(INPUT, encrypt=False, key_file="dna.key", verbose=False)
     print("Encoded:", ENCODED)
-    DECODED = DNAStore().decode(ENCODED, decrypt=False, verbose=False)
+    DECODED = DNAStore().decode(
+        ENCODED, decrypt=False, key_file="dna.key", verbose=False
+    )
     print("Decoded:", DECODED)
 
-    DNAStore().generate_key(verbose=True)
-    DNAStore().import_key(verbose=True)
+    # DNAStore().generate_key(verbose=True)
+    # DNAStore().import_key(verbose=True)
