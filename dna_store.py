@@ -745,13 +745,23 @@ class DNAStore:
 
 if __name__ == "__main__":
     INPUT = """
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa 
-qui officia deserunt mollit anim id est laborum.
+ON THE ORIGIN OF SPECIES by Charles Darwin
+
+When on board H.M.S. "Beagle," as naturalist, I was much struck with
+certain facts in the distribution of the inhabitants of South America,
+and in the geological relations of the present to the past inhabitants
+of that continent. These facts seemed to me to throw some light on the
+origin of species—that mystery of mysteries, as it has been called by
+one of our greatest philosophers. On my return home, it occurred to me,
+in 1837, that something might perhaps be made out on this question by
+patiently accumulating and reflecting on all sorts of facts which could
+possibly have any bearing on it. After five years’ work I allowed
+myself to speculate on the subject, and drew up some short notes; these
+I enlarged in 1844 into a sketch of the conclusions, which then seemed
+to me probable: from that period to the present day I have steadily
+pursued the same object. I hope that I may be excused for entering on
+these personal details, as I give them to show that I have not been
+hasty in coming to a decision.
 """
     ENCODED = DNAStore().encode(INPUT, encrypt=False, key_file="dna.key", verbose=False)
     print("Encoded:", ENCODED)
