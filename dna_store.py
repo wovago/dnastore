@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# *_* coding: utf-8 *_*
 
 import secrets
 import string
