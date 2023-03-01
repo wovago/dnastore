@@ -377,6 +377,7 @@ class DNAStore:
             bits -- nr of bits per base (will be multiplied by 4) (default: {512})
             verbose -- ptint verbose output (default: {False})
         """
+        assert bits >= 100, "Nr of bits cannot be smaller than 100"
         digit = string.digits
         key = "".join([(secrets.choice(digit)) for _ in range(bits * 4)])
         wrapped = textwrap.fill(key, width=80)
@@ -410,8 +411,10 @@ class DNAStore:
                 ]
             )
 
-        l = len(key_string) // 4
-        key_streams = [key_string[i : i + l] for i in range(0, len(key_string), l)]
+        length = len(key_string) // 4
+        key_streams = [
+            key_string[i : i + length] for i in range(0, len(key_string), length)
+        ]
 
         if verbose:
             print("key_streams:", key_streams)
@@ -779,7 +782,7 @@ hasty in coming to a decision.
     DECODED = DNAStore().decode(
         ENCODED, decrypt=False, key_file="dna.key", verbose=False
     )
-    print("Decoded:", DECODED)
+    # print("Decoded:", DECODED)
 
     # DNAStore().generate_key(verbose=True)
     # DNAStore().import_key(verbose=True)
