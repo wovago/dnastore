@@ -18,6 +18,8 @@ from random import randint
 
 
 class DNAStore:
+    """_Class that provides static methods for encoding and deconding text input"""
+
     # Ditionary with huffman code generated from
     # htps://www.ebi.ac.uk/goldman-srv/DNA-storage/orig_files/View_huff3.cd.new
     __HUFFMAN_DICT = {
