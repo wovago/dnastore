@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # *_* coding: utf-8 *_*
 
+"""
+Module that can convert text into DNA sequence represenation for storage..
+
+This module implements the algorithm to convert text into DNA as described in
+"Towards practical, high-capacity, low-maintenance information storage in synthesized DNA"
+(Goldstein et al, 2013) to store information into DNA
+"""
+
 import secrets
 import string
 import textwrap
