@@ -1,6 +1,5 @@
 # Project-specific files
 .vscode/*
-dna.key
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
