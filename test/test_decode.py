@@ -5,7 +5,7 @@ import sys
 PROJECT_PATH = os.getcwd()
 SOURCE_PATH = os.path.join(PROJECT_PATH, "src")
 sys.path.append(SOURCE_PATH)
-from dnastore.dnastore import DNAStore
+from dnastore import DNAStore
 
 
 ENCODED = [
@@ -17,8 +17,8 @@ DECODED = DNAStore.decode(ENCODED)
 INPUT = "This is a test."
 
 
-class TestEncode(unittest.TestCase):
-    def test_encode(self):
+class TestDecode(unittest.TestCase):
+    def test_decode(self):
         self.assertEqual(DECODED, INPUT)
 
 

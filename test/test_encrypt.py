@@ -5,7 +5,7 @@ import sys
 PROJECT_PATH = os.getcwd()
 SOURCE_PATH = os.path.join(PROJECT_PATH, "src")
 sys.path.append(SOURCE_PATH)
-from dnastore.dnastore import DNAStore
+from dnastore import DNAStore
 
 key_file = os.path.join(PROJECT_PATH, "test", "dna.key")
 
@@ -18,8 +18,8 @@ OUTPUT = [
 ]
 
 
-class TestEncode(unittest.TestCase):
-    def test_encode(self):
+class TestEncrypt(unittest.TestCase):
+    def test_encrypt(self):
         self.assertEqual(ENCODED[1], OUTPUT[1])
 
 
