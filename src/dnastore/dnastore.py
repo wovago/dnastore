@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+# *_* coding: utf-8 *_*
+
+"""
+Module that can convert text into DNA sequence represenation for storage..
+
+This module implements the algorithm to convert text into DNA as described in
+"Towards practical, high-capacity, low-maintenance information storage in synthesized DNA"
+(Goldstein et al, 2013) to store information into DNA
+"""
 
 import secrets
 import string
@@ -9,6 +18,8 @@ from random import randint
 
 
 class DNAStore:
+    """_Class that provides static methods for encoding and deconding text input"""
+
     # Ditionary with huffman code generated from
     # htps://www.ebi.ac.uk/goldman-srv/DNA-storage/orig_files/View_huff3.cd.new
     __HUFFMAN_DICT = {
@@ -366,6 +377,7 @@ class DNAStore:
             bits -- nr of bits per base (will be multiplied by 4) (default: {512})
             verbose -- ptint verbose output (default: {False})
         """
+        assert bits >= 100, "Nr of bits cannot be smaller than 100"
         digit = string.digits
         key = "".join([(secrets.choice(digit)) for _ in range(bits * 4)])
         wrapped = textwrap.fill(key, width=80)
@@ -399,8 +411,10 @@ class DNAStore:
                 ]
             )
 
-        l = len(key_string) // 4
-        key_streams = [key_string[i : i + l] for i in range(0, len(key_string), l)]
+        length = len(key_string) // 4
+        key_streams = [
+            key_string[i : i + length] for i in range(0, len(key_string), length)
+        ]
 
         if verbose:
             print("key_streams:", key_streams)
@@ -768,7 +782,7 @@ hasty in coming to a decision.
     DECODED = DNAStore().decode(
         ENCODED, decrypt=False, key_file="dna.key", verbose=False
     )
-    print("Decoded:", DECODED)
+    # print("Decoded:", DECODED)
 
     # DNAStore().generate_key(verbose=True)
     # DNAStore().import_key(verbose=True)
