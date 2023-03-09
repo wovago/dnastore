@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import unittest
 import os
 import sys
@@ -23,5 +24,5 @@ class TestEncrypt(unittest.TestCase):
         self.assertEqual(ENCODED[1], OUTPUT[1])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

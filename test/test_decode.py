@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import unittest
 import os
 import sys
@@ -22,5 +23,5 @@ class TestDecode(unittest.TestCase):
         self.assertEqual(DECODED, INPUT)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

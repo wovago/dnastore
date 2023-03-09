@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import unittest
 import os
 import sys
@@ -26,5 +27,5 @@ class TestDecrypt(unittest.TestCase):
         self.assertEqual(DECRYPTED, INPUT)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
