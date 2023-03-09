@@ -18,7 +18,7 @@ from random import randint
 
 
 class DNAStore:
-    """_Class that provides static methods for encoding and deconding text input"""
+    """Class that provides static methods for encoding and deconding text input."""
 
     # Ditionary with huffman code generated from
     # htps://www.ebi.ac.uk/goldman-srv/DNA-storage/orig_files/View_huff3.cd.new
@@ -301,7 +301,7 @@ class DNAStore:
     @classmethod
     def encode(cls, input_string, encrypt=False, key_file=None, verbose=False):
         """
-        Encodes an input string to DNA sequence
+        Encode an input string to DNA sequence.
 
         :return: encoded dna sequences
         :rtype: list[str]
@@ -334,7 +334,7 @@ class DNAStore:
     @classmethod
     def decode(cls, input_dna, decrypt=False, key_file=None, verbose=False):
         """
-        Decodes a DNA sequence to input string
+        Decode a DNA sequence to input string.
 
         return: decoded string
         rtype: str
@@ -370,7 +370,7 @@ class DNAStore:
     @classmethod
     def generate_key(cls, key_file="dna.key", bits=512, verbose=False):
         """
-        Generates a key to encrypt DNA and writes key to file
+        Generate a key to encrypt DNA and writes key to file.
 
         Keyword Arguments:
             file -- file name of key file_ (default: {"dna.key"})
@@ -393,7 +393,7 @@ class DNAStore:
     @classmethod
     def __import_key(cls, key_file="dna.key", verbose=False):
         """
-        Imports a DNA key file
+        Import a DNA key file.
 
         Keyword Arguments:
             file -- input file name_ (default: {"dna.key"})
@@ -424,7 +424,7 @@ class DNAStore:
     @classmethod
     def __encode_string2huffman(cls, s_0, verbose=False):
         """
-        Converts a string to bytes and then encodes bytes with huffman code
+        Convert a string to bytes and then encodes bytes with huffman code.
 
         return: string with huffman code
         rtype: str
@@ -439,7 +439,7 @@ class DNAStore:
     @classmethod
     def __convert2base3(cls, number):
         """
-        Converts number to base 3
+        Convert number to base 3.
 
         return: base 3 representation
         rtype: str
@@ -455,8 +455,8 @@ class DNAStore:
     @classmethod
     def __encode_string_length2trits(cls, s_1, verbose=False):
         """
-        Gets length of input string, converts to base 3 representation
-        and encodes into trits
+        Get length of input string, converts to base 3 representation \
+        and encodes into trits.
 
         return: trit for length input sequence
         rtype: str
@@ -471,9 +471,9 @@ class DNAStore:
     @classmethod
     def __pad_trits(cls, s_1, verbose=False):
         """
-        Gets the length of input string and converts to trits.
-        Prepend those trits to input string and append padding trits
-        to make sure final string is a multiple of 25
+        Get the length of input string and converts to trits. \
+        Prepend those trits to input string and append padding trits \
+        to make sure final string is a multiple of 25.
 
         return: padded sequence with trits
         rtype: str
@@ -489,7 +489,7 @@ class DNAStore:
     @classmethod
     def __convert_trits_2dna(cls, s_4, verbose=False):
         """
-        Converts trits to DNA
+        Convert trits to DNA.
 
         return: DNA sequence
         rtype: str
@@ -507,7 +507,7 @@ class DNAStore:
     @classmethod
     def __reverse_complement(cls, dna_string):
         """
-        Returns reverse complement of DNA string
+        Return reverse complement of DNA string.
 
         return: reverse complement
         rtype: str
@@ -520,8 +520,8 @@ class DNAStore:
     @classmethod
     def __create_segments(cls, s_5, verbose=False):
         """
-        Splits string into overlapping segments.
-        Also reverse complements the segments with odd indexes
+        Split string into overlapping segments. \
+        Also reverse complements the segments with odd indexes.
 
         return: list of overlapping segments
         rtype: list[str]
@@ -540,7 +540,7 @@ class DNAStore:
     @classmethod
     def __randomize_segments(cls, segment_list, mode, key_streams, verbose=False):
         """
-        Randomizes segments using keystreams
+        Randomize segments using keystreams.
 
         return: encrypted/decrypted sequence
         rtype: str
@@ -593,7 +593,7 @@ class DNAStore:
     @classmethod
     def __create_indexed_segments(cls, segment_list, file_id_trit="12", verbose=False):
         """
-        Appends indexing information to segments
+        Append indexing information to segment.
 
         return: return segments with indexing adapters
         rtype: list[str]
@@ -618,7 +618,7 @@ class DNAStore:
     @classmethod
     def __add_orientation_bases(cls, segment_list, verbose=False):
         """
-        Adds flanking bases to determine orientation of sequence
+        Add flanking bases to determine orientation of sequence.
 
         return: sequence with added orientation bases
         rtype: str
@@ -647,7 +647,7 @@ class DNAStore:
     @classmethod
     def __remove_orientation(cls, segment_list, verbose=False):
         """
-        Removes the bases used to determine direction of sequence
+        Remove the bases used to determine direction of sequence.
 
         return: sequence with orientation bases removed
         rtype: str
@@ -674,7 +674,7 @@ class DNAStore:
     @classmethod
     def __convert_dna2trits(cls, s_4, start_nt="A", verbose=False):
         """
-        Converts DNA to trits
+        Convert DNA to trits.
 
         return: sequence of trits
         rtype: str
@@ -693,7 +693,7 @@ class DNAStore:
     @classmethod
     def __extract_segments(cls, segment_list, verbose=False):
         """
-        Extracts the encoded segments
+        Extract the encoded segments.
 
         return: sorted segments without indexing adapters
         rtype: list[str]
@@ -716,7 +716,7 @@ class DNAStore:
     @classmethod
     def __assemble_segments(cls, segment_list, overlap=25, verbose=False):
         """
-        Assembles (and reverse complements odd) segments
+        Assemble (and reverse complements odd) segments.
 
         return: assembled sequence from segments
         rtype: str
@@ -733,7 +733,7 @@ class DNAStore:
     @classmethod
     def __decode_dna_string(cls, dna_string, verbose=False):
         """
-        Decodes DNA into original representation via huffman code
+        Decode DNA into original representation via huffman code.
 
         return: decoded sequence
         rtype: str
