@@ -22,4 +22,5 @@ class TestDecode(unittest.TestCase):
         self.assertEqual(DECODED, INPUT)
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()

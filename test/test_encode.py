@@ -21,4 +21,5 @@ class TestEncode(unittest.TestCase):
         self.assertEqual(ENCODED[1], OUTPUT[1])
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()

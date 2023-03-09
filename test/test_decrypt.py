@@ -26,4 +26,5 @@ class TestDecrypt(unittest.TestCase):
         self.assertEqual(DECRYPTED, INPUT)
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()
