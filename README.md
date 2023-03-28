@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Simple Python for DNA storage that converts text strings into DNA strings and vice versa. This package implements the algorithm described in "Towards practical, high-capacity, low-maintenance information storage in synthesized DNA" (Goldstein et al, 2013) to store information into DNA. Algorithm details are provided in the [supplementary information](docs/algorithm.pdf)
+Simple Python package for DNA storage that converts text strings into DNA strings and vice versa. This package implements the algorithm described in "Towards practical, high-capacity, low-maintenance information storage in synthesized DNA" (Goldstein et al, 2013) to store information into DNA. Algorithm details are provided in the [supplementary information](docs/algorithm.pdf)
 
 For more information, please see https://www.nature.com/articles/nature11875#Sec2
 
