@@ -1,7 +1,7 @@
 # dnastore
 
-![release](https://img.shields.io/github/v/tag/wovago/dnastore?color=fuchsia&label=release&logo=github)
-![build status](https://img.shields.io/github/actions/workflow/status/wovago/dnastore/tox-matrix.yml?color=green&label=build&logo=github)
+![release](https://img.shields.io/github/v/tag/wovago/dnastore?color=fuchsia&label=latest/stable&logo=github)
+![build status](https://img.shields.io/github/actions/workflow/status/wovago/dnastore/tox-matrix.yml?color=green&label=CI&logo=github)
 ![language](https://img.shields.io/github/languages/top/wovago/dnastore?color=blue&logo=python&logoColor=yellow)
 
 ## Introduction
