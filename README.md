@@ -1,5 +1,9 @@
 # dnastore
 
+![release](https://img.shields.io/github/v/tag/wovago/dnastore?color=fuchsia&label=release&logo=github)
+![build status](https://img.shields.io/github/actions/workflow/status/wovago/dnastore/tox-matrix.yml?color=green&label=build&logo=github)
+![language](https://img.shields.io/github/languages/top/wovago/dnastore?color=blue&logo=python&logoColor=yellow)
+
 ## Introduction
 
 Simple Python package for DNA storage that converts text strings into DNA strings and vice versa. This package implements the algorithm described in "Towards practical, high-capacity, low-maintenance information storage in synthesized DNA" (Goldstein et al, 2013) to store information into DNA. Algorithm details are provided in the [supplementary information](docs/algorithm.pdf)
